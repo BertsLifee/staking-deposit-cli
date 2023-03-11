@@ -1,11 +1,14 @@
 version: 2.1
 
-tox_common: &tox_common
+tox_common:
+  &tox_common
   working_directory: ~/repo
   steps:
     - checkout
     - restore_cache:
-        key: tox-deps3-{{ arch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
+        key: tox-deps3-{{ arch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum
+          "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{
+          checksum "setup.py" }}-{{ checksum "Makefile" }}
     - run:
         name: install dependencies
         command: pip install --user tox
@@ -16,7 +19,9 @@ tox_common: &tox_common
         paths:
           - .tox
           - ./eggs
-        key: tox-deps3-{{ arch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
+        key: tox-deps3-{{ arch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum
+          "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{
+          checksum "setup.py" }}-{{ checksum "Makefile" }}
 
 orbs:
   win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.          
@@ -30,12 +35,16 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}-v2
+          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{
+            checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{
+            checksum "Makefile" }}-v2
       - run:
           name: Install requirements in venv
           command: make venv_build_test
       - save_cache:
-          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}-v2
+          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{
+            checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{
+            checksum "Makefile" }}-v2
           paths:
             - ./venv
   venv_pytest:
@@ -45,7 +54,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}-v2
+          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{
+            checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{
+            checksum "Makefile" }}-v2
       - run:
           name: Run tests with venv
           command: make venv_test
@@ -61,7 +72,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}-v2
+          key: venv-deps2-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{
+            checksum "requirements_test.txt" }}-{{ checksum "setup.py" }}-{{
+            checksum "Makefile" }}-v2
       - run:
           name: Run linter with venv
           command: make venv_lint
@@ -286,6 +299,8 @@ jobs:
             shasum -a 256 ${BUILD_FILE_NAME}.tar.gz | head -c 64 > /tmp/artifacts/${BUILD_FILE_NAME}.sha256
       - store_artifacts:
           path: /tmp/artifacts
+    # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
+    resource_class: large
 
 workflows:
   version: 2.1
@@ -309,7 +324,7 @@ workflows:
       - build-linux-arm64
   build_windows:
     jobs:
-        - build-windows
+      - build-windows
   build_macos:
     jobs:
-        - build-macos
+      - build-macos
