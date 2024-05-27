@@ -2,7 +2,7 @@
 -r ../../requirements.txt
 
 # Build tools for binary distribution
-pyinstaller==4.10 \
+pyinstaller==5.13.1 \
     --hash=sha256:05c21117b84199272ebd355b556af4714f6e79245e1c435d6f16653786d7d17e \
     --hash=sha256:0dcaf6557cdb2da763c46e06e95a94a7634ab03fb09d91bc77988b01ee05c907 \
     --hash=sha256:15557cd1a79d182967f0a5040750e6902e13ebd6cab41e3ed84d7b28a306357b \
@@ -14,7 +14,7 @@ pyinstaller==4.10 \
     --hash=sha256:cfed0b3a43e73550a43a094610328109564710b9514afa093ef7199d072cae87 \
     --hash=sha256:d4f79c0a774451f12baca4e476376418f011fa3039dde8fd172ea2aa8ff67bad \
     --hash=sha256:f2166ff2cd95eefb0d377ae8d1071f186fa25edd410ede65b376162d5ec41909
-setuptools==60.9.3 \
+setuptools==65.5.1 \
     --hash=sha256:2347b2b432c891a863acadca2da9ac101eae6169b1d3dfee2ec605ecd50dbfe5 \
     --hash=sha256:e4f30b9f84e5ab3decf945113119649fec09c1fc3507c6ebffec75646c56e62b
 cffi==1.15.0 \
